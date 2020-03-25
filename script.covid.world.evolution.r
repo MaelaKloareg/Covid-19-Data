@@ -1,4 +1,5 @@
-# source  of data :
+# charts of total covid-19 cases & deaths evolution 
+# The data is downloaded from : 
 # https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide
 
 # these libraries are necessary
@@ -15,7 +16,7 @@ url <- paste("https://www.ecdc.europa.eu/sites/default/files/documents/COVID-19-
 
 GET(url, authenticate(":", ":", type="ntlm"), write_disk(tf <- tempfile(fileext = ".xlsx")))
 
-# read the Dataset sheet into “R”
+# read the Dataset sheet into â€œRâ€
 
 data <- read_excel(tf)
 
@@ -60,7 +61,7 @@ toto$Country=factor(toto$Country,CountryNewLevels)
 ggplot(data=toto) + aes(y=cumulDeaths, x=DateRep, col=Country) +geom_point() + geom_line() + theme_classic() +
 	scale_y_continuous(trans = 'log10') + 
 	annotation_logticks(sides="l") + 
-	labs(y="Nombre total de morts (échelle logarithmique)", x="Date", col="Pays")
+	labs(y="Nombre total de morts (Ã©chelle logarithmique)", x="Date", col="Pays")
 
 # without log scale
 ggplot(data=toto) + aes(y=cumulDeaths, x=DateRep, col=Country) +geom_point() + geom_line() + theme_classic() +
@@ -75,7 +76,7 @@ ggplot(data=tutu) + aes(y=cumulDeaths, x=DateRep, group=Country, col=Country) +t
   geom_line() + 
   scale_y_continuous(trans = 'log10') + 
   annotation_logticks(sides="l") + 
-  labs(y="Nombre total de morts (échelle logarithmique)", x="Date", col="Pays")
+  labs(y="Nombre total de morts (Ã©chelle logarithmique)", x="Date", col="Pays")
 
 ###
 # Cases
@@ -84,7 +85,7 @@ ggplot(data=toto, aes(y=cumulCases, x=DateRep, col=Country)) + theme_classic() +
   geom_point() + geom_line() + 
   scale_y_continuous(trans = 'log10') +
   annotation_logticks(sides="l") + 
-  labs(y="Nombre total de cas déclarés (échelle logarithmique)", x="Date", col="Pays")
+  labs(y="Nombre total de cas dÃ©clarÃ©s (Ã©chelle logarithmique)", x="Date", col="Pays")
 
 ###
 # Deaths per million habitant (Pop_Data.2018)
@@ -96,7 +97,7 @@ toto$cumulDeaths_per_million = toto$cumulDeaths/toto$Pop_Data.2018*1000000
 ggplot(data=toto) + aes(y=cumulDeaths_per_million, x=DateRep, col=Country) +geom_point() + geom_line() + theme_classic() +
 	scale_y_continuous(trans = 'log10') + 
 	annotation_logticks(sides="l") + 
-	labs(y="Nombre total de morts par million d'habitant (échelle logarithmique)", x="Date", col="Pays")
+	labs(y="Nombre total de morts par million d'habitant (Ã©chelle logarithmique)", x="Date", col="Pays")
 
 
 

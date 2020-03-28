@@ -2,24 +2,7 @@ library(httr)
 library(ggplot2)
 library(reshape) # melt() et dcast()
 
-setwd("D:/Kuzulia/Docs_stat/2020_covid")
-
 #https://www.data.gouv.fr/fr/datasets/cas-confirmes-dinfection-au-covid-19-par-region/
-
-# https://github.com/bzg/covid19-fr/blob/master/data/covid19.csv
-
-# create the URL where the dataset is stored with automatic updates every day
-
-url <- "https://raw.githubusercontent.com/bzg/covid19-fr/master/data/covid19.csv"
-
-# download the dataset from the website to a local temporary file
-
-GET(url, authenticate(":", ":", type="ntlm"), write_disk(tf <- tempfile(fileext = ".csv")))
-
-# read the Dataset sheet into “R”
-
-france <- read.csv(tf)
-summary(france)
 
 #############################
 # france
@@ -45,12 +28,12 @@ ggplot(data=france) + aes(y=cas, x=Date, group=region, col=region) +theme_classi
   geom_smooth(method='lm', se=FALSE) +  
   scale_y_continuous(trans = 'log10') + 
   annotation_logticks(sides="l") + 
-  labs(y="Nombre total de cas (échelle logarithmique)", x="Date", col="Région",
-	caption="données mises à jour le 25/03/2020")
+  labs(y="Nombre total de cas (Ã©chelle logarithmique)", x="Date", col="RÃ©gion",
+	caption="donnÃ©es mises Ã  jour le 25/03/2020")
 
 # without log scale
 ggplot(data=france) + aes(y=cas, x=Date, group=region, col=region) +theme_classic() +
   geom_point() + 
   geom_line() + 
-  labs(y="Nombre total de cas", x="Date", col="Région",
-	caption="données mises à jour le 25/03/2020")
+  labs(y="Nombre total de cas", x="Date", col="RÃ©gion",
+	caption="donnÃ©es mises Ã  jour le 25/03/2020")
